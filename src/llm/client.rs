@@ -5,7 +5,7 @@ use std::env;
 
 // API constants
 const OPENROUTER_API_URL: &str = "https://openrouter.ai/api/v1/chat/completions";
-const SONNET_MODEL: &str = "anthropic/claude-3-sonnet-20240229";
+const SONNET_MODEL: &str = "anthropic/claude-3.7-sonnet:thinking";
 
 /// Represents a message in the chat conversation
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -95,7 +95,7 @@ impl SonnetClient {
         }
 
         let chat_response: ChatResponse = response.json().await?;
-        
+
         if chat_response.choices.is_empty() {
             return Err(anyhow!("No response choices received from API"));
         }
@@ -103,3 +103,4 @@ impl SonnetClient {
         Ok(chat_response.choices[0].message.content.clone())
     }
 }
+
